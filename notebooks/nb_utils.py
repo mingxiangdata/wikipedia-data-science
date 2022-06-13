@@ -7,12 +7,10 @@ CACHE_DIR = os.path.expanduser('~/.cache/dl-cookbook')
 
 def download(url):
     filename = os.path.join(CACHE_DIR, re.sub('[^a-zA-Z0-9.]+', '_', url))
-    if os.path.exists(filename):
-        return filename
-    else:
+    if not os.path.exists(filename):
         os.system('mkdir -p "%s"' % CACHE_DIR)
         assert os.system('wget -O "%s" "%s"' % (filename, url)) == 0
-        return filename
+    return filename
     
     
 def load_w2v(tokenizer=None):
